@@ -49,19 +49,19 @@ public class Parser {
 
     switch (components[0]) {
       case "FUNCIONÁRIO":
-        _person = new Employee(id, ohone, components[3]);
+        _person = new Employee(id, phone, components[3]);
         break;
 
       case "DOCENTE":
-        _person = new Teacher(id, ohone, components[3]);
+        _person = new Teacher(id, phone, components[3]);
         break;
 
       case "ALUNO":
-        _person = new Student(id, ohone, components[3], false);
+        _person = new Student(id, phone, components[3], false);
         break;
 
       case "DELEGADO":
-        _person = new Student(id, ohone, components[3], true);
+        _person = new Student(id, phone, components[3], true);
         break;
 
       default:
