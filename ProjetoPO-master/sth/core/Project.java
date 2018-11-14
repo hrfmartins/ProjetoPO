@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class Project{
     private String _name;
     private String _description;
-    private boolean closed;
+    private boolean _closed;
     private Survey _survey;
     private List<Submission> _submissions;
 
@@ -24,10 +24,11 @@ public class Project{
     /*package*/ void setSuvey(Survey survey){
         _survey=survey;
     }
+
     /*package*/ Survey getSurvey(){
         return _survey;
-
     }
+
     /*package*/ void addSubmissions(Studen st,String message){
 
     }

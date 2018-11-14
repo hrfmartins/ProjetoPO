@@ -10,6 +10,7 @@ public class Survey{
     }
     /*package*/ void open(){
 
+
     }
     /*package*/ void close(){
 
