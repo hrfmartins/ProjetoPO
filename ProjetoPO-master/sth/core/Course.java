@@ -15,6 +15,11 @@ import java.util.List;
             _name = name;
         }
 
+        /*package*/ Discipline parseDiscipline(String name){
+            Discipline dis = new Discipline(name, this);
+            _disciplines.add(dis);
+    }
+
         public String getName(){
             return _name;
         }

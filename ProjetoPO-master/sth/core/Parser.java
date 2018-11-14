@@ -73,7 +73,6 @@ public class Parser {
 
   private void parseContext(String line) {
     String lineContex = line.substring(2);
-
     _person.parseContext(lineContext, school);
   }
 }

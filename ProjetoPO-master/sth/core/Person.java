@@ -29,5 +29,8 @@ public abstract class Person{
          "Phone Number: "+ _phoneNumber;
     }
 
+    void parseContext(String context, School school) throws BadEntryException {
+        throw new BadEntryException("Should not have extra context: " + context);
+    }
 
 }
