@@ -7,7 +7,7 @@ import pt.tecnico.po.ui.Menu;
 import sth.core.SchoolManager;
 import sth.app.main.MainMenu;
 import sth.app.person.DoLogin;
-import sth.core.exceptions.BadEntryException;
+import sth.core.exception.BadEntryException;
 
 import java.io.IOException;
 

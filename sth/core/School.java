@@ -27,6 +27,7 @@ public class School implements java.io.Serializable {
     * @throws IOException
     */
     void importFile(String filename) throws IOException, BadEntryException {
+        
         //FIXME implement text file reader
     }
 

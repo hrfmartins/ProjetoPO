@@ -24,9 +24,12 @@ public class DoShowAllPersons extends Command<SchoolManager> implements Label{
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-      try{
-          _receiver.DoShowAllPersons();
-      }
+    String list_person[]=_receiver.DoShowAllPersons();
+    for(String person: list_person){
+      _display.addLine(person);
+    }
+    _display.display();
+     
 
     //FIXME implement command
   }

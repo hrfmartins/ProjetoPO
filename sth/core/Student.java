@@ -60,5 +60,8 @@ public class Student extends Person{
             s=s+" "+d.getName();
     }
 
+    public List getListDisciplines(){
+        return _disciplines;
+    }
 
 }

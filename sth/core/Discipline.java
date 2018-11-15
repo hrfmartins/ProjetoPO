@@ -29,9 +29,19 @@ public class Discipline{
     }
 
     /*package*/void enrollStudent(Student st){
-        if(st.getNumDiscipline()<7){
-            _students.add(s);
-            st.addDiscipline(this);
+        if(st.getNumDiscipline()<6){
+            boolean enroll = true;
+            List <Discipline> lstDisc = st.getListDisciplines(st.getId());
+            for (Discipline dsc : lstDisc){
+                if ((dsc.getname()).equals(_name)){
+                    enroll = false;
+                    break;
+                }
+            }
+            if (enroll == true){
+                _students.add(s);
+                st.addDiscipline(this);
+            }
         }
         else{
 

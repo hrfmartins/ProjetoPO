@@ -19,6 +19,12 @@ public abstract class Person{
         return _id;
     }
 
+    public void setPhoneNumber(int i){
+        if (i > 0){
+            _phoneNumber = phoneNumber;
+        }
+    }
+
     public int getPhoneNumber(){
         return _phoneNumber;
     }

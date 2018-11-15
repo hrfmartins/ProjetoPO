@@ -4,6 +4,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 import pt.tecnico.po.ui.Input;
 import sth.core.SchoolManager;
+import sth.core.exception.BadEntryException;
 
 //FIXME import other classes if needed
 
@@ -29,16 +30,8 @@ public class DoChangePhoneNumber extends Command<SchoolManager> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-      _form.parse();
-      //falta implementar aqui__________________________________________________
-
-    try{
-        _receiver.setPhoneNumber(_phoneNumber);
-//Implementar exceção __________________________________________________________
-    } catch (NoSuchPersonException e){
-         _display.popup(Message.PersonNotFound());
-
-    }
+    _form.parse();
+    _receiver.setPhoneNumber(_phoneNumber);
   }
 
 }
