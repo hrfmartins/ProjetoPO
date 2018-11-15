@@ -15,6 +15,11 @@ import java.util.List;
             _name = name;
         }
 
+        /*package*/ Discipline parseDiscipline(String name){
+            Discipline dis = new Discipline(name, this);
+            _disciplines.add(dis);
+    }
+
         public String getName(){
             return _name;
         }
@@ -30,15 +35,28 @@ import java.util.List;
         }
 
         /*protected*/ void addRepresentative(Student st){
-            if (st.isRepresentative()){
+            if (!(st.isRepresentative()) && _representatives.length() != 7){
                 _representatives.add(st);
+                st.setRepresentative(true);
             }
 
             else{
-                throw new BadEntryException("No Max disciplines exceeded");
-
+                if (st.isRepresentative()){
+                throw new BadEntryException("Student is already a representative");
+                }
+                else{
+                    throw new BadEntryException("Limit of max representatives");
+                }
             }
         }
 
-        /*protected
-    }
+        /*protected*/ void removeRepresentative(Student st){
+            if(st.isRepresentative()){
+                _representatives.remove(st);
+                st.setRepresentative(false);
+            }
+
+            else{
+                throw new BadEntryException("Student is not a representative");
+            }
+        }

@@ -17,6 +17,7 @@ public class SchoolManager {
 
   //FIXME add object attributes if needed
   private School _school;
+  private Person _loggedIn;
 
   //FIXME implement constructors if needed
 
@@ -69,6 +70,19 @@ public class SchoolManager {
    */
   public boolean isLoggedUserRepresentative() {
     //FIXME implement predicate
+  }
+
+  public String showPerson(int i){
+      _school.getPerson(int i);
+
+  }
+
+  public void setPhoneNumber(int phoneNumber){
+      _loggedIn.setPhoneNumber(phoneNumber);
+  }
+
+  public String getPersonByName(String name){
+      _school.getPersonByName(name);
   }
 
   //FIXME implement other methods (in general, one for each command in sth-app)

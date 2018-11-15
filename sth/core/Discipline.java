@@ -1,10 +1,13 @@
 package sth.core;
+import java.util.List;
+import java.util.Iterator;
 
 public class Discipline{
     private String _name;
     private int _capacity;
     private List<Student> _students;
     private List<Teacher> _teachers;
+    private List<Project> _projects;
     private Course _course;
 
     public Discipline(String s,Course c){
@@ -35,8 +38,20 @@ public class Discipline{
         }
 
     }
-    /*package*/void createProject(String s){
-        Project p=new Project(s);
+    /*package*/void createProject(String name,String des){
+        Project p=new Projeto(name,des);
+        _projects.add(p);
+
+
+    }
+    /*package*/Project getProject(String name){
+        Iterator<Projeto> iterator = _projects.iterator();
+        while(iterator.hasNext()){
+            Project project= iterator.next();
+            if(project.getName().equals(name)){
+                return project;
+            }
+        }
 
     }
 

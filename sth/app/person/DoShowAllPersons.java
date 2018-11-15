@@ -9,7 +9,7 @@ import sth.core.SchoolManager;
 /**
  * 4.2.3. Show all persons.
  */
-public class DoShowAllPersons extends Command<SchoolManager> {
+public class DoShowAllPersons extends Command<SchoolManager> implements Label{
 
   //FIXME add input fields if needed
 
@@ -24,6 +24,10 @@ public class DoShowAllPersons extends Command<SchoolManager> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
+      try{
+          _receiver.DoShowAllPersons();
+      }
+
     //FIXME implement command
   }
 
