@@ -1,4 +1,4 @@
 # ProjetoPO
 
 
-fiz algumas classes fiquei com algumas duvidas amanha falamos sobre elas
+Ja sei corrigir os erros do comparator, se conseguires corrige os throws,etc
