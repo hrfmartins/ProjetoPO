@@ -3,9 +3,13 @@ package sth.app.teaching;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import sth.core.SchoolManager;
-
-import sth.core.exception.NoSuchDisciplineIdException;
+import sth.app.exception.NoSuchDisciplineException;
+import sth.app.exception.NoSuchProjectException;
 import sth.core.exception.NoSuchProjectIdException;
+import sth.core.exception.NoSuchDisciplineIdException;
+
+
+
 
 /**
  * 4.4.1. Create project.
@@ -25,15 +29,20 @@ public class DoCreateProject extends sth.app.common.ProjectCommand {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void myExecute() throws DialogException, NoSuchDisciplineIdException, NoSuchProjectIdException {
-      _form.parse();
-      try{
-          _receiver.createProject(_discipline,_name);
-      }catch (NoSuchPersonException e){
-          _display.popup(Message.PersonNotFound());
-      }finally {
+      _receiver.createProject(_discipline,_name);
+  }
 
-      }
-    //FIXME implement command
+
+  public final void execute() throws DialogException {
+    _form.parse();
+
+    try {
+      myExecute();
+    } catch (NoSuchProjectIdException nsp) {
+      throw new NoSuchProjectException(_discipline,_name);
+    } catch (NoSuchDisciplineIdException nsd) {
+      throw new NoSuchDisciplineException(_discipline);
+    }
   }
 
 }

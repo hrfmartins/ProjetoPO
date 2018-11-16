@@ -14,8 +14,6 @@ import sth.core.exception.BadEntryException;
 public class DoChangePhoneNumber extends Command<SchoolManager> {
     private Input<Integer> _phoneNumber;
 
-  //FIXME add input fields if needed
-
 
   /**
    * @param receiver
@@ -23,11 +21,7 @@ public class DoChangePhoneNumber extends Command<SchoolManager> {
   public DoChangePhoneNumber(SchoolManager receiver) {
     super(Label.CHANGE_PHONE_NUMBER, receiver);
     _phoneNumber=_form.addIntegerInput(Message.requestPhoneNumber());
-    //FIXME initialize input fields if needed
   }
-
-
-  /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
     _form.parse();

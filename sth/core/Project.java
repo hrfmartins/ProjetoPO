@@ -1,35 +1,46 @@
 package sth.core;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Project{
     private String _name;
-    private String _description;
     private boolean _closed;
-    private Survey _survey;
-    private List<Submission> _submissions;
+    /*private Survey _survey;*/
+    /*private List<Submission> _submissions;*/
 
-    public Project(String name,String des){
+    public Project(String name){
         _name=name;
-        _description=_description;
-        closed=false;
-        _submissions=new List<Submission>();
+        _closed=false;
+        /*_submissions=new List<Submission>();*/
     }
+
+
     /*package*/String getName(){
         return _name;
     }
-    /*package*/void close(){
-        closed=true;
-    }                                       /*duvidas*/
-    /*package*/ void setSuvey(Survey survey){
+
+
+    /*package*/ void close(){
+        _closed=true;
+    }
+
+
+                                          /*duvidas*/
+    /*package void setSuvey(Survey survey){
         _survey=survey;
     }
 
-    /*package*/ Survey getSurvey(){
+
+
+    package Survey getSurvey(){
         return _survey;
     }
 
-    /*package*/ void addSubmissions(Studen st,String message){
+
+
+    package void addSubmissions(Studen st,String message){
 
     }
+    */
+
 }

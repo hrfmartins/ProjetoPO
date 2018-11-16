@@ -1,4 +1,6 @@
 package sth.core;
+import java.util.List;
+import java.util.Iterator;
 
 public class Survey{
     List<Student> _students;
@@ -20,10 +22,9 @@ public class Survey{
     }
     /*package*/ void addAnswer(Student st,int hours,String message){
         _students.add(st);
-        Answer a= new(message,hours);
-
+        Answer a = new Answer(message,hours);
     }
-    /*package*/ void getResults(){
 
+    /*package*/ void getResults(){
     }
 }

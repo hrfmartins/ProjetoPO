@@ -1,11 +1,13 @@
 package sth.core;
+import sth.core.exception.BadEntryException;
+import java.util.*;
 
 public abstract class Person{
     private int _id;
     private String _name;
     private int _phoneNumber;
 
-    public Person(int id, int name, int phoneNumber){
+    public Person(int id, String name, int phoneNumber){
         _id = id;
         _name = name;
         _phoneNumber = phoneNumber;
@@ -19,8 +21,8 @@ public abstract class Person{
         return _id;
     }
 
-    public void setPhoneNumber(int i){
-        if (i > 0){
+    public void setPhoneNumber(int phoneNumber){
+        if (phoneNumber > 0){
             _phoneNumber = phoneNumber;
         }
     }
@@ -28,15 +30,32 @@ public abstract class Person{
     public int getPhoneNumber(){
         return _phoneNumber;
     }
-
     public String toString(){
-        String p = "";
-        return "Name: " + _name + " ID: "+ _id +
-         "Phone Number: "+ _phoneNumber;
+        String number=""+_phoneNumber;
+        String number1=number.substring(3);
+        String number2=number.substring(3,6);
+        String number3=number.substring(6,9);
+        return ""+_id+"|"+number1+" "+number2+" "+number3+"|"+_name;
     }
+
+
+
 
     void parseContext(String context, School school) throws BadEntryException {
         throw new BadEntryException("Should not have extra context: " + context);
     }
+    class IdComparator implements Comparator<Person>{
+        @Override
+        public int compare(Person a, Person b){
+            if (a.getId() < b.getId()) {
+                return -1;
+            } if (a.getId() > b.getId()) {
+                return 1;
+            } return 0;
+        }
+    }
+
+
+
 
 }

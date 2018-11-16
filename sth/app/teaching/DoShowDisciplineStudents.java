@@ -4,8 +4,11 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import sth.core.SchoolManager;
+import sth.app.exception.NoSuchDisciplineException;
+import sth.core.exception.NoSuchDisciplineIdException;
 
-//FIXME import other classes if needed
+
+
 
 /**
  * 4.4.4. Show course students.
@@ -25,18 +28,18 @@ public class DoShowDisciplineStudents extends Command<SchoolManager> {
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
-  public final void execute() throws DialogException,NoSuchDisciplineIdException {
+  public final void execute() throws DialogException{
       form.parse();
       try{
-          String s=_receiver.showDisciplineStudents(_discipline);
-      }/*catch (NoSuchPersonException | NoSuchDisciplineIdException e){
-          _display.popup(Message.PersonNotFound());
-      }finally {
-
+          String alunos[]=_receiver.showDisciplineStudents(_discipline);
+          if(s!=null){
+              for(String aluno:alunos){
+                  _display.addLine(aluno);
+              }
+          }
+      }catch (NoSuchDisciplineIdException nsde){
+          throw new NoSuchDisciplineException(_discipline);
       }
-      */
-
-    //FIXME implement command
   }
 
 }

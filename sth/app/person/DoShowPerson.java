@@ -16,8 +16,6 @@ import sth.app.exception.NoSuchPersonException;
  */
 public class DoShowPerson extends Command<SchoolManager> implements Label{
 
-  //FIXME add input fields if needed
-
   /**
    * @param receiver
    */
@@ -28,11 +26,8 @@ public class DoShowPerson extends Command<SchoolManager> implements Label{
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
-  public final void execute() throws NoSuchPersonException {
+  public final void execute(){
     _display.addLine(_receiver.showLogPerson());
     _display.display();
   }
-    //FIXME implement command
-  }
-
 }

@@ -1,9 +1,9 @@
 package sth.core;
-
-//FIXME import other classes if needed
-
+import java.util.ArrayList;
+import java.util.Iterator;
 import sth.core.exception.BadEntryException;
 import sth.core.exception.NoSuchPersonIdException;
+import java.util.*;
 
 import java.io.IOException;
 
@@ -14,12 +14,13 @@ public class School implements java.io.Serializable {
 
   /** Serial number for serialization. */
   private static final long serialVersionUID = 201810051538L;
-    private List <Course> _courses;
-    private List <Person> _persons;
+    private ArrayList <Course> _courses;
+    private ArrayList <Person> _persons;
 
-  //FIXME define object fields (attributes and, possibly, associations)
-
-  //FIXME implement constructors if needed
+    public School(){
+        _courses = new ArrayList<Course>();
+        _persons = new ArrayList<Person>();
+    }
 
   /**
     * @param filename
@@ -27,16 +28,19 @@ public class School implements java.io.Serializable {
     * @throws IOException
     */
     void importFile(String filename) throws IOException, BadEntryException {
-        
-        //FIXME implement text file reader
+
+        Parser p=new Parser(this);
+        p.parseFile(filename);
     }
 
+
     /*package*/ Course parseCourse(String course){
-        Course cs = new course(course);
+        Course cs = new Course(course);
         _courses.add(cs);
         }
 
-    /*package*/ Person getPerson(int id){
+
+    /*package*/ Person getPerson(int id) {
         for (Person p : _persons){
             if (p.getId() == id){
                 return p;
@@ -45,15 +49,21 @@ public class School implements java.io.Serializable {
         return null;
     }
 
-    public String getPersonByName(String name){
+    public ArrayList<Person> getPersonByName(String name){
+        ArrayList<Person> ArrayList = new ArrayList<Person>(_persons);
         for (Person p : _persons){
-            if (p.getName() == name){
-                return p;
+            if ((p.getName()).equals(name)){
+                ArrayList.add(p);
             }
         }
-        return null;
+        return ArrayList;
     }
 
-        //FIXME implement other methods
+
+    public ArrayList <Person> getPersonArrayList(){
+        return _persons;
+    }
+
+
 
 }

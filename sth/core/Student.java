@@ -1,17 +1,21 @@
 package sth.core;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Iterator;
+import sth.core.exception.BadEntryException;
+import java.util.Collections;
+import java.util.*;
+import sth.core.Discipline.DisciplineComparator;
+import sth.core.Discipline;
 
 
 public class Student extends Person{
     private boolean _isRepresentative;
     private Course _course;
-    private List <Discipline> _disciplines;
+    private ArrayList <Discipline> _disciplines;
 
     public Student(int id, int phoneNumber, String name, boolean del){
-        super.Person(id, name, phoneNumber);
+        super(id, name, phoneNumber);
         _isRepresentative = del;
-
     }
 
     void parseContext(String lineContext, School school) throws BadEntryException {
@@ -37,30 +41,55 @@ public class Student extends Person{
         _course = c;
     }
 
-    /*package*/ addDiscipline(Discipline d){
+    /*package*/ void addDiscipline(Discipline d){
         _disciplines.add(d);
     }
-    /*package*/ setRepresentative(boolean rep){
+    /*package*/ void setRepresentative(boolean rep){
     _isRepresentative = rep;
     }
 
     /*package*/ int getNumDiscipline(){
-        return _disciplines.length();
+        return _disciplines.size();
     }
 
 
-    /*package*/ isRepresentative(){
+    /*package*/boolean isRepresentative(){
     return _isRepresentative;
     }
 
-    public String toString(){
-        String s = super.toString();
-        s = s + "Delegado: " + _isRepresentative
-        for( Discipline d : _disciplines){
-            s=s+" "+d.getName();
+    public String[] tooString(){
+        if( _isRepresentative == true ){
+            String str = "Delegado|";
+            str+= super.toString();
+            return aux(str);
+        }
+        else{
+            String str = "Aluno|";
+            str+= super.toString();
+            return aux(str);
+        }
     }
 
-    public List getListDisciplines(){
+
+    private String[] aux(String str){
+        ArrayList<Discipline> disciplinesort= new ArrayList<Discipline>(_disciplines);
+        Discipline dis = new Discipline();
+        Discipline.DisciplineComparator comp = dis.new DisciplineComparator();
+        disciplinesort.sort(comp);
+        String[] l = new String[1+disciplinesort.size()];
+        l[0] = str;
+        int i = 1;
+        for(Discipline d:disciplinesort){
+            l[i]= "* " + _course.getName()+" - " + d.getName();
+            i++;
+        }
+
+        return l;
+    }
+
+
+
+    /*package*/ ArrayList<Discipline> getArrayListDisciplines(){
         return _disciplines;
     }
 
