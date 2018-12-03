@@ -1,8 +1,12 @@
 package sth.core;
 import sth.core.exception.BadEntryException;
+import sth.core.exception.NoSuchDisciplineIdException;
+import sth.core.exception.NoSuchPersonIdException;
 import java.util.*;
 
-public abstract class Person{
+public abstract class Person implements java.io.Serializable{
+
+    private static final long serialVersionUID = 201810051538L;
     private int _id;
     private String _name;
     private int _phoneNumber;
@@ -32,11 +36,18 @@ public abstract class Person{
     }
     public String toString(){
         String number=""+_phoneNumber;
-        String number1=number.substring(3);
+        String number1=number.substring(0, 3);
         String number2=number.substring(3,6);
         String number3=number.substring(6,9);
         return ""+_id+"|"+number1+" "+number2+" "+number3+"|"+_name;
     }
+
+    public ArrayList<String> tooString(){
+        ArrayList<String> arrLst = new ArrayList<String>();
+        return arrLst;
+    }
+
+
 
 
 

@@ -8,6 +8,7 @@ import sth.core.SchoolManager;
 import sth.app.main.MainMenu;
 import sth.app.person.DoLogin;
 import sth.core.exception.BadEntryException;
+import sth.core.exception.ImportFileException;
 
 import java.io.IOException;
 
@@ -16,19 +17,22 @@ import java.io.IOException;
  */
 public class App {
 
-  public static void main(String[] args) {
+  public static void main(String[] args){
     SchoolManager school = new SchoolManager();
 
     String datafile = System.getProperty("import"); //$NON-NLS-1$
     if (datafile != null) {
       try {
         school.importFile(datafile);
-      } catch (BadEntryException | IOException bde) {
+    } catch (ImportFileException ife) {
         // file input should always be correct: just present the problem
         // no behavior described: just present the problem
-        System.err.println("Error in parsing: " + bde.getMessage());
+        System.err.println("Error in parsing: " + ife.getMessage());
+        ife.printStackTrace();
+    }catch (BadEntryException bde){
+        System.err.println("Error in parsing:" + bde.getMessage());
         bde.printStackTrace();
-      }
+        }
     }
 
     try {

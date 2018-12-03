@@ -20,10 +20,12 @@ public class NoSuchPersonException extends DialogException {
     _id = id;
   }
 
+
   /** @see pt.tecnico.po.ui.DialogException#getMessage() */
   @Override
   public String getMessage() {
     return Message.noSuchPerson(_id);
   }
+
 
 }

@@ -29,20 +29,9 @@ public class DoCreateProject extends sth.app.common.ProjectCommand {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void myExecute() throws DialogException, NoSuchDisciplineIdException, NoSuchProjectIdException {
-      _receiver.createProject(_discipline,_name);
+      _receiver.createProject(_discipline.value(),_name.value());
   }
 
 
-  public final void execute() throws DialogException {
-    _form.parse();
-
-    try {
-      myExecute();
-    } catch (NoSuchProjectIdException nsp) {
-      throw new NoSuchProjectException(_discipline,_name);
-    } catch (NoSuchDisciplineIdException nsd) {
-      throw new NoSuchDisciplineException(_discipline);
-    }
-  }
 
 }

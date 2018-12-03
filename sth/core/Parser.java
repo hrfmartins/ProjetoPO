@@ -17,19 +17,25 @@ public class Parser {
   Parser(School s) {
     _school = s;
   }
-
   void parseFile(String fileName) throws IOException, BadEntryException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
       String line;
+      while ((line = reader.readLine()) != null){
+          parseLine(line);
 
-      while ((line = reader.readLine()) != null)
-        parseLine(line);
+      }
+
     }
-  }
+   }
+
+
+
 
   private void parseLine(String line) throws BadEntryException {
-    if (line.startsWith("#"))
+    if (line.startsWith("#")){
       parseContext(line);
+
+    }
     else
       parseHeaderPerson(line);
   }
@@ -40,7 +46,7 @@ public class Parser {
     int phone;
 
     if (components.length != 4)
-      throw new BadEntryException("Invalid line " + line);
+      throw new BadEntryException(header);
 
     id = Integer.parseInt(components[1]);
     phone = Integer.parseInt(components[2]);
@@ -48,29 +54,36 @@ public class Parser {
     switch (components[0]) {
       case "FUNCIONÁRIO":
         _person = new Employee(id, phone, components[3]);
+        //_school.addEmployee(_person);
         break;
 
       case "DOCENTE":
-        _person = new Teacher(id, phone, components[3]);
+        _person = new Teacher(id,components[3],phone);
+        Teacher t = (Teacher)_person;
+        _school.addTeacher(t);
         break;
 
       case "ALUNO":
         _person = new Student(id, phone, components[3], false);
+        Student st = (Student)_person;
+        _school.addStudent(st);
         break;
 
       case "DELEGADO":
         _person = new Student(id, phone, components[3], true);
+        Student del = (Student)_person;
+        _school.addStudent(del);
         break;
 
       default:
         throw new BadEntryException("Invalid token " + components[0] + "in line describing a person");
      }
+    _school.addPerson(_person);
 
-    _school.addPerson(person);
   }
 
-  private void parseContext(String line) {
+  private void parseContext(String line) throws BadEntryException  {
     String lineContex = line.substring(2);
-    _person.parseContext(lineContext, school);
+    _person.parseContext(lineContex, _school);
   }
 }

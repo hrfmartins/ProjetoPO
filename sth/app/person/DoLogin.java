@@ -28,7 +28,7 @@ public class DoLogin extends Command<SchoolManager> {
   public final void execute() throws DialogException {
     _form.parse();
     try {
-      _receiver.login(_login);
+      _receiver.login(_login.value());
     } catch (NoSuchPersonIdException e) {
       throw new NoSuchPersonException(_login.value());
     }

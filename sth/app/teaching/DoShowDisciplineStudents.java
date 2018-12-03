@@ -29,16 +29,16 @@ public class DoShowDisciplineStudents extends Command<SchoolManager> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException{
-      form.parse();
+      _form.parse();
       try{
-          String alunos[]=_receiver.showDisciplineStudents(_discipline);
-          if(s!=null){
-              for(String aluno:alunos){
+          String[] alunos = _receiver.showDisciplineStudents(_discipline.value());
+          if(alunos != null){
+              for(String aluno : alunos){
                   _display.addLine(aluno);
               }
           }
       }catch (NoSuchDisciplineIdException nsde){
-          throw new NoSuchDisciplineException(_discipline);
+          throw new NoSuchDisciplineException(_discipline.value());
       }
   }
 

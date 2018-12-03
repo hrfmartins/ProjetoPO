@@ -2,13 +2,14 @@ package sth.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import sth.core.exception.BadEntryException;
+import sth.core.exception.NoSuchDisciplineIdException;
 import java.util.Collections;
 import java.util.*;
 import sth.core.Discipline.DisciplineComparator;
 import sth.core.Discipline;
 
 
-public class Student extends Person{
+public class Student extends Person implements java.io.Serializable{
     private boolean _isRepresentative;
     private Course _course;
     private ArrayList <Discipline> _disciplines;
@@ -16,6 +17,8 @@ public class Student extends Person{
     public Student(int id, int phoneNumber, String name, boolean del){
         super(id, name, phoneNumber);
         _isRepresentative = del;
+        _disciplines= new ArrayList<Discipline>();
+
     }
 
     void parseContext(String lineContext, School school) throws BadEntryException {
@@ -44,8 +47,9 @@ public class Student extends Person{
     /*package*/ void addDiscipline(Discipline d){
         _disciplines.add(d);
     }
+
     /*package*/ void setRepresentative(boolean rep){
-    _isRepresentative = rep;
+        _isRepresentative = rep;
     }
 
     /*package*/ int getNumDiscipline(){
@@ -57,31 +61,33 @@ public class Student extends Person{
     return _isRepresentative;
     }
 
-    public String[] tooString(){
+    public ArrayList<String> tooString(){
+        ArrayList<String> stringArr= new ArrayList<String>();
         if( _isRepresentative == true ){
-            String str = "Delegado|";
+            String str = "DELEGADO|";
             str+= super.toString();
-            return aux(str);
+            stringArr.add(aux(str));
+            return stringArr;
         }
         else{
-            String str = "Aluno|";
+            String str = "ALUNO|";
             str+= super.toString();
-            return aux(str);
+            stringArr.add(aux(str));
+            return stringArr;
         }
     }
 
 
-    private String[] aux(String str){
+
+    private String aux(String str){
         ArrayList<Discipline> disciplinesort= new ArrayList<Discipline>(_disciplines);
         Discipline dis = new Discipline();
         Discipline.DisciplineComparator comp = dis.new DisciplineComparator();
         disciplinesort.sort(comp);
-        String[] l = new String[1+disciplinesort.size()];
-        l[0] = str;
-        int i = 1;
+        String l;
+        l = str;
         for(Discipline d:disciplinesort){
-            l[i]= "* " + _course.getName()+" - " + d.getName();
-            i++;
+            l+="\n" + "* " + _course.getName()+" - " + d.getName();
         }
 
         return l;

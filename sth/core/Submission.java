@@ -1,4 +1,4 @@
-package sth.core;
+/*package sth.core;
 
 public class Submission{
     private String _message;
@@ -8,10 +8,11 @@ public class Submission{
         _message=message;
         _student=st;
     }
-    /*package*/String toString(){
-        return _message;/*id do aluno??*/
+    /*packageString toString(){
+        return _message;/*id do aluno??
     }
-    /*package*/int getStudentId(){
-        return _student.getId();/*id do aluno??*/
+    /*packageint getStudentId(){
+        return _student.getId();/*id do aluno??
     }
 }
+*/

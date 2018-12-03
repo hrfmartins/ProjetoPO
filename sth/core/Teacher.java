@@ -1,15 +1,22 @@
 package sth.core;
 import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.*;
 import sth.core.exception.BadEntryException;
 import sth.core.exception.NoSuchDisciplineIdException;
 import sth.core.exception.NoSuchProjectIdException;
+import sth.core.Discipline.DisciplineComparator;
+import sth.core.Discipline;
+import sth.core.Course.CourseComparator;
+import sth.core.Course;
 
-public class Teacher extends Person{
+public class Teacher extends Person implements java.io.Serializable{
     private ArrayList<Discipline> _disciplines;
+    private ArrayList<Course> _courses;
 
     public Teacher(int id,String name,int phoneNumber){
         super(id,name,phoneNumber);
+        _disciplines= new ArrayList<Discipline>();
+        _courses= new ArrayList<Course>();
     }
 
 
@@ -18,55 +25,61 @@ public class Teacher extends Person{
 
         if (components.length != 2)
             throw new BadEntryException("Invalid line context " + lineContext);
-
+        int flag=0;
         Course course = school.parseCourse(components[0]);
-        _courses.add(course);
+        if (_courses.size() != 0){
+            for(Course c : _courses){
+                if((course.getName()).equals(c.getName())){
+                    flag=1;
+                }
+            }
+        }
+
+        if(flag==0){
+            _courses.add(course);
+        }
         Discipline discipline = course.parseDiscipline(components[1]);
         _disciplines.add(discipline);
         discipline.addTeacher(this);
+
+
     }
 
     /*package*/ void addDiscipline(Discipline d){
     _disciplines.add(d);
     }
+    /*package*/ ArrayList<Course> getCourses(){
+        return _courses;
+    }
 
 
-    public String tooString(){
-        String first = "Teacher|"+super.toString();
+
+    public ArrayList<String> tooString(){
+        String first = "DOCENTE|"+super.toString();
         ArrayList<Discipline> _disciplinesort= new ArrayList<Discipline>(_disciplines);
-        _disciplinesort.sort(new DisciplineComparator());
-        ArrayList<Course> _course=createArrayListCoursesort(_disciplinesort);
-        String[] ArrayList=transforma(_course,disciplinesort,first);
-        return ArrayList;
+        Discipline dis = new Discipline();
+        Discipline.DisciplineComparator comp = dis.new DisciplineComparator();
+        _disciplinesort.sort(comp);
+        ArrayList<Course> _cour=new ArrayList<Course>(_courses);
+        Course cour = new Course();
+        Course.CourseComparator comp1 = cour.new CourseComparator();
+        _cour.sort(comp1);
+        ArrayList<String> arrayList = new ArrayList<String>();
+        arrayList=transforma(_cour,_disciplinesort,first);
+        return arrayList;
 
     }
-
-
-
-    /*package*/ static ArrayList<Course> createArrayListCoursesort(ArrayList<Discipline> l){
-        ArrayList<Course> _course= new ArrayList<Course>();
-        for(Discipline d:l){
-            _course.add(d.getCourse());
-        }
-        _course.sort(new CourseComparator());
-        return _course;
-
-
-    }
-
-    /*package*/static String[] transforma(ArrayList<Course> ArrayListCourse,ArrayList<Discipline> ArrayListDis,String first){
-        String[] ArrayList = new String[1+ArrayListDis.size()];
-        ArrayList[0]=first;
-        i=1;
+    /*package*/static ArrayList<String> transforma(ArrayList<Course> ArrayListCourse,ArrayList<Discipline> ArrayListDis,String first){
+        ArrayList<String> disciplines = new ArrayList<String>();
+        disciplines.add(first);
         for(Course c:ArrayListCourse){
             for(Discipline d:ArrayListDis){
                 if(((d.getCourse()).getName()).equals(c.getName())){
-                    ArrayList[i]="* "+_c.getName()+" - "+d.getName();
-                    i++;
+                    disciplines.add("* "+ c.getName()+" - "+d.getName());
                 }
             }
         }
-        return ArrayList;
+        return disciplines;
     }
 
 
@@ -78,14 +91,14 @@ public class Teacher extends Person{
         } throw new NoSuchDisciplineIdException(disc);
     }
 
-    /*package*/ void createProject(String dis,String name) throws NoSuchDisciplineIdException {
+    /*package*/ void createProject(String disC,String name) throws NoSuchDisciplineIdException {
         Discipline d = null;
         for(Discipline dis: _disciplines){
-            if (dis.equals(d.getName())){
+            if (disC.equals(d.getName())){
                 d = dis;
             }
         } if (d == null){
-            throw new NoSuchDisciplineIdException(dis);
+            throw new NoSuchDisciplineIdException(disC);
         } else{
             d.createProject(name);
         }
@@ -93,16 +106,22 @@ public class Teacher extends Person{
 
 
     /*package*/ void closeProject(String strDis, String name) throws NoSuchDisciplineIdException, NoSuchProjectIdException {
-        Discipline d = null;
-        for(Discipline dis: _disciplines){
-            if (strDis.equals(d.getName())){
-                d = dis;
+        int success = 0;
+        Iterator<Discipline> iterator=_disciplines.iterator();
+        Discipline d= iterator.next();
+        while(iterator.hasNext()){
+            d= iterator.next();
+            if(d.getName().equals(strDis)){
+                success=1;
+                break;
             }
-        } if (d == null){
+
+        }
+        if (success == 0){
             throw new NoSuchDisciplineIdException(strDis);
         } else{
             ArrayList<Project> projects= new ArrayList<Project>();
-            projects = d.getAllProjects(name);
+            projects = d.getAllProjects();
             boolean suc = false;
             for(Project proj: projects){
                 if (name.equals(proj.getName())){
@@ -114,6 +133,7 @@ public class Teacher extends Person{
             }
         }
     }
+
 
 
 }

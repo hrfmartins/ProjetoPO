@@ -6,22 +6,31 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 
-    public class Course{
+    public class Course implements java.io.Serializable{
+        private static final long serialVersionUID = 201810051538L;
         private String _name;
         private ArrayList<Student> _students;
         private ArrayList<Student> _representatives;
         private ArrayList<Discipline> _disciplines;
 
-
+        public Course(){}
         public Course(String name){
+            System.out.println("construtor no curso");
             _name = name;
+            _students = new ArrayList<Student>();
+            _representatives = new ArrayList<Student>();
+            _disciplines = new ArrayList<Discipline>();
         }
 
 
-        /*package*/ void parseDiscipline(String name){
-            Discipline dis = new Discipline(name, this);
-            _disciplines.add(dis);
-            dis.addCourse(this);
+        /*package*/ Discipline parseDiscipline(String name){
+            for (Discipline d : _disciplines){
+                if (d.getName().equals(name))
+                    return d;
+            }
+            Discipline x = new Discipline(name, this);
+            _disciplines.add(x);
+            return x;
         }
 
 
@@ -39,6 +48,7 @@ import java.util.Comparator;
 
 
         /*protected*/ void addStudent(Student st){
+            System.out.println(st.getName());
             _students.add(st);
             st.setCourse(this);
         }
@@ -61,7 +71,7 @@ import java.util.Comparator;
         }
 
 
-        /*protected*/ void removeRepresentative(Student st){
+        /*protected*/ void removeRepresentative(Student st) throws BadEntryException {
             if(st.isRepresentative()){
                 _representatives.remove(st);
                 st.setRepresentative(false);
@@ -71,6 +81,7 @@ import java.util.Comparator;
                 throw new BadEntryException("Student is not a representative");
             }
         }
+
         class CourseComparator implements Comparator<Course>{
             @Override
             public int compare(Course a,Course b){

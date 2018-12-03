@@ -25,7 +25,7 @@ public class DoChangePhoneNumber extends Command<SchoolManager> {
   @Override
   public final void execute() {
     _form.parse();
-    _receiver.setPhoneNumber(_phoneNumber);
+    _receiver.setPhoneNumber(_phoneNumber.value());
   }
 
 }

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import sth.core.exception.BadEntryException;
 
-public class Discipline{
+public class Discipline implements java.io.Serializable {
+
+    private static final long serialVersionUID = 201810051538L;
     private String _name;
     private int _capacity;
     private ArrayList<Student> _students;
@@ -17,10 +19,12 @@ public class Discipline{
         _name=s;
         _course=c;
         _students= new ArrayList<Student>();
+        _teachers= new ArrayList<Teacher>();
+        _projects= new ArrayList<Project>();
     }
 
 
-    /*package*/String getName(){
+    /*package*/ String getName(){
         return _name;
     }
 
@@ -45,24 +49,10 @@ public class Discipline{
     }
 
 
-    /*package*/void enrollStudent(Student st){
-        if(st.getNumDiscipline()<6){
-            boolean enroll = true;
-            ArrayList <Discipline> lstDisc = st.getArrayListDisciplines();
-            for (Discipline dsc : lstDisc){
-                if ((dsc.getName()).equals(_name)){
-                    enroll = false;
-                    break;
-                }
-            }
-            if (enroll == true){
-                _students.add(st);
-                st.addDiscipline(this);
-            }
-        }
-        else{
-
-        }
+    /*package*/ void enrollStudent(Student st){
+            _students.add(st);
+            System.out.println(_students.size());
+            st.addDiscipline(this);
 
     }
 
@@ -88,6 +78,7 @@ public class Discipline{
     /*package*/ ArrayList<Project> getAllProjects(){
         return _projects;
     }
+
     class DisciplineComparator implements Comparator<Discipline>{
         @Override
         public int compare(Discipline a,Discipline b){
