@@ -2,6 +2,9 @@
 
 
 Projeto de Programação com Objetos.
-IST 
+
+IST LEIC-T 2017/2018
+
 Hugo Martins
+
 Pedro Monteiro
