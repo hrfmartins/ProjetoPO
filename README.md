@@ -1,4 +1,7 @@
 # ProjetoPO
 
 
-Ja sei corrigir os erros do comparator, se conseguires corrige os throws,etc
+Projeto de Programação com Objetos.
+IST 
+Hugo Martins
+Pedro Monteiro
